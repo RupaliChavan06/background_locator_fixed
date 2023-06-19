@@ -81,7 +81,9 @@ class IsolateHolderService : MethodChannel.MethodCallHandler, LocationUpdateList
     override fun onCreate() {
         super.onCreate()
         startLocatorService(this)
-        startForeground(notificationId, getNotification())
+        val notification = getNotification()
+        notification.flags = Notification.FLAG_ONGOING_EVENT
+        startForeground(notificationId, notification)
     }
 
     private fun start() {
@@ -94,6 +96,7 @@ class IsolateHolderService : MethodChannel.MethodCallHandler, LocationUpdateList
 
         // Starting Service as foreground with a notification prevent service from closing
         val notification = getNotification()
+        notification.flags = Notification.FLAG_ONGOING_EVENT
         startForeground(notificationId, notification)
 
         pluggables.forEach {
@@ -247,6 +250,7 @@ class IsolateHolderService : MethodChannel.MethodCallHandler, LocationUpdateList
         }
 
         val notification = getNotification()
+         notification.flags = Notification.FLAG_ONGOING_EVENT
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(notificationId, notification)
