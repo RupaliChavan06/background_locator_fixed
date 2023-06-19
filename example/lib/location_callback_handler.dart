@@ -30,5 +30,18 @@ class LocationCallbackHandler {
   @pragma('vm:entry-point')
   static Future<void> notificationCallback() async {
     print('***notificationCallback');
+
+    WidgetsFlutterBinding.ensureInitialized();
+    var pref = await SharedPreferences.getInstance();
+    pref.setBool('sp_key_called_from_noti', true);
+    // bool? isTripStarted = pref.getBool('trip_started');
+    // List<String>? tripData = pref.getStringList('trip_data');
+    //
+    // Get.to(TripAnalyticsScreen(
+    //     tripId: tripData![0],
+    //     vesselId: tripData[1],
+    //     tripIsRunningOrNot: isTripStarted));
+
+    debugPrint('APP RESTART 2');
   }
 }
